@@ -66,7 +66,6 @@ end
 
 def add_comment_to_pr(warning_message)
   
-  puts "Comment Trigger Fonksiyonu"
   url = URI("#{$base_url}/#{$organization_name}/#{$project_name}/_apis/git/repositories/#{$repository}/pullRequests/#{$ac_pr_number}/threads?api-version=#{$azure_api_version}")
   https = Net::HTTP.new(url.host, url.port)
   https.use_ssl = true
@@ -91,7 +90,7 @@ def add_comment_to_pr(warning_message)
 end
 
 def change_status(status_err_message, statusState)
-  puts "State Trigger Fonksiyonu"
+
   url = URI("#{$base_url}/#{$organization_name}/#{$project_name}/_apis/git/repositories/#{$repository}/pullRequests/#{$ac_pr_number}/statuses?api-version=7.1-preview.1")
 
   https = Net::HTTP.new(url.host, url.port)
