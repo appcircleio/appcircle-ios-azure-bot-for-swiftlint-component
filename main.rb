@@ -13,7 +13,6 @@ $repository = get_env_variable('AC_AZURE_REPO_NAME')
 $base_url = get_env_variable('AC_AZURE_BASE_URL')
 azure_api_key = get_env_variable('AC_AZURE_API_KEY')
 $basic_token = "Basic #{Base64.strict_encode64(":#{azure_api_key}")}"
-$base_url = 'https://dev.azure.com'
 $json_content = "application/json"
 
 
