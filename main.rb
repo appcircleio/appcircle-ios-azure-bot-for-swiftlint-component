@@ -118,10 +118,10 @@ end
 if File.exist?($swiftlint_file_path)
   
   swiftlint_results = File.read($swiftlint_file_path)
-  error_count, warning_count = extract_error_and_warning_count(swiftlint_results)
   
   if contains_warnings_or_error?(swiftlint_results)
     puts "PR ##{$ac_pr_number} stopped successfully due to SwiftLint warnings."
+    error_count, warning_count = extract_error_and_warning_count(swiftlint_results)
     warning_message = prepare_message_total_errors(swiftlint_results)
     status_err_message = "Some errors were returned from the SwiftLint report for PR ##{$ac_pr_number}, Appcircle stopped Build."
     statusState = "failed"
@@ -131,11 +131,9 @@ if File.exist?($swiftlint_file_path)
     abort status_err_message
   else
     puts "PR ##{$ac_pr_number} is ready to review! No warnings, No violation"
-    # Uyarı mesajını hazırla
-    warning_message = "PR #{$ac_pr_number} is ready to review!\n- Errors: #{error_count}\n- Warnings: #{warning_count}\nNo Error, No Warning"
+    warning_message = "PR #{$ac_pr_number} is ready to review!\n- Errors: 0\n- Warnings: 0\nNo Error, No Warning"
     status_err_message = "PR ##{$ac_pr_number} is clear and ready to review."
     statusState = "succeeded"
-    # PR altına yorum olarak uyarı mesajını ekle
     add_comment_to_pr(warning_message)
     change_status(status_err_message, statusState)
   end
