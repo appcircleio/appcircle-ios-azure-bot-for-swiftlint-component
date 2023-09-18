@@ -1,4 +1,4 @@
-# Appcircle _Azure DevOps Bot For Swiftlint Report_ component
+# Appcircle _Azure DevOps Bot for Swiftlint Report_ component
 
 Bot script that allows Swiftlint outputs to make changes to Azure DevOps Pull Requests.
 

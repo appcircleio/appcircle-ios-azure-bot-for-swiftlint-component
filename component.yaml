@@ -1,6 +1,6 @@
 platform: iOS
 buildPlatform:
-displayName: Azure DevOps Bot For Swiftlint Report
+displayName: Azure DevOps Bot for Swiftlint Report
 description: "Bot script that allows Swiftlint outputs to make changes to Azure DevOps Pull Requests."
 inputs:
 - key: "AC_LINT_PATH"
