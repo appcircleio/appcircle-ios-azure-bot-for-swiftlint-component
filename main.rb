@@ -67,7 +67,7 @@ def add_comment_to_pr(warning_message)
   
   url = URI("#{$base_url}/#{$organization_name}/#{$project_name}/_apis/git/repositories/#{$repository}/pullRequests/#{$ac_pr_number}/threads?api-version=#{$azure_api_version}")
   https = Net::HTTP.new(url.host, url.port)
-  https.use_ssl = true
+  https.use_ssl = url.scheme == "https"
   request = Net::HTTP::Post.new(url)
   request["Authorization"] = $basic_token
   request["Content-Type"] = $json_content
@@ -90,10 +90,13 @@ end
 
 def change_status(status_err_message, statusState)
 
-  url = URI("#{$base_url}/#{$organization_name}/#{$project_name}/_apis/git/repositories/#{$repository}/pullRequests/#{$ac_pr_number}/statuses?api-version=7.1-preview.1")
+  # The statuses API is only available as a preview, so it needs the "-preview.1" suffix.
+  api_version = $azure_api_version || "7.1"
+  status_api_version = api_version.include?("preview") ? api_version : "#{api_version}-preview.1"
+  url = URI("#{$base_url}/#{$organization_name}/#{$project_name}/_apis/git/repositories/#{$repository}/pullRequests/#{$ac_pr_number}/statuses?api-version=#{status_api_version}")
 
   https = Net::HTTP.new(url.host, url.port)
-  https.use_ssl = true
+  https.use_ssl = url.scheme == "https"
   request = Net::HTTP::Post.new(url)
   request["Authorization"] = $basic_token
   request["Content-Type"] = $json_content
